@@ -1,26 +1,37 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { io, Socket } from 'socket.io-client';
+import { useApp } from './use-app';
 const socketUrl = import.meta.env.VITE_SOCKET_URL;
+
+const socket = io(`${socketUrl}`, { withCredentials: true });
 
 type UseSocket = [Socket | null, boolean];
 
 export function useSocket(): UseSocket {
-  const socketRef = useRef<Socket | null>(null);
-  const [connected, setConnected] = useState(false);
+  const { user } = useApp();
+  const [connected, setConnected] = useState(socket.connected);
 
   useEffect(() => {
-    socketRef.current = io(socketUrl, {
-      transports: ['websocket'],
-    });
+    if (!user) {
+      socket.disconnect();
+    }
 
-    socketRef.current.on('connect', () => {
+    setConnected(false);
+  }, [user]);
+
+  useEffect(() => {
+    if (!user) {
+      return;
+    }
+
+    socket.on('connect', () => {
       setConnected(true);
     });
 
     return () => {
-      socketRef.current?.disconnect();
+      socket.disconnect();
     };
-  }, []);
+  }, [user]);
 
-  return [socketRef.current, connected];
+  return [socket, connected];
 }

@@ -1,10 +1,22 @@
-import type { Socket } from 'socket.io-client';
 import { useEffect } from 'react';
+import { useSocket } from './use-socket';
+import { useSnackbar } from 'notistack';
 
-export function useSocketNotification(socket: Socket) {
+interface Notification {
+  message: string;
+}
+
+export function useNotification() {
+  const [socket] = useSocket();
+  const { enqueueSnackbar } = useSnackbar();
+
   useEffect(() => {
-    socket.on('notification.created', notification => {
-      console.log('New notification received:', notification);
+    if (!socket) {
+      return;
+    }
+
+    socket.on('notification.created', (notification: Notification) => {
+      enqueueSnackbar(notification.message, { variant: 'success' });
     });
-  }, [socket]);
+  }, [socket, enqueueSnackbar]);
 }

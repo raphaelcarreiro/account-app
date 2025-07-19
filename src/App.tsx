@@ -1,13 +1,17 @@
-import { useState } from 'react';
 import './App.css';
-import { AppBar } from '@components/appbar';
+import Index from '@pages/index';
+import { LogoutButton } from '@components/logout-button';
+import { useNotification } from './hooks/use-socket-notification';
+import SplashScreen from '@components/splash-screen';
 
 function App() {
-  const [notifications, setNotifications] = useState<string[]>([]);
+  useNotification();
 
   return (
     <>
-      <AppBar />
+      <SplashScreen />
+      <Index />
+      <LogoutButton />
     </>
   );
 }
