@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { Box } from '@mui/material';
 import { LoginForm } from './login-form';
-import { useAuth } from 'src/hooks/use-auth';
 import { useLoginValidation } from '@pages/index/validation/use-login-validation';
-import { useApp } from 'src/hooks/use-app';
+import { useAuth } from 'src/providers/auth/context';
+import { useApp } from 'src/providers/app/context';
 
 export default function Login() {
   const { login } = useAuth();
