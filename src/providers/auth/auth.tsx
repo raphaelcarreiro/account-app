@@ -7,7 +7,6 @@ import { useSocket } from '../socket/context';
 
 const AuthProvider: FC<PropsWithChildren> = ({ children }) => {
   const [isRefreshing, setIsRefreshing] = useState(true);
-  const [isLoggingIn, setIsLoggingIn] = useState(false);
   const { setUser } = useApp();
   const { disconnect } = useSocket();
 
@@ -26,12 +25,8 @@ const AuthProvider: FC<PropsWithChildren> = ({ children }) => {
 
   const login = useCallback(
     async (credential: Credential) => {
-      setIsLoggingIn(true);
-
       const response = await api.post('/login', credential);
       setUser(response.data);
-
-      setIsLoggingIn(false);
     },
     [setUser],
   );
@@ -42,7 +37,7 @@ const AuthProvider: FC<PropsWithChildren> = ({ children }) => {
     disconnect();
   }, [setUser, disconnect]);
 
-  return <AuthContextProvider value={{ login, logout, isRefreshing, isLoggingIn }}>{children}</AuthContextProvider>;
+  return <AuthContextProvider value={{ login, logout, isRefreshing }}>{children}</AuthContextProvider>;
 };
 
 export default AuthProvider;
