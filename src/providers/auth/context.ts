@@ -4,7 +4,6 @@ import type { Credential } from '@pages/index/types/credential';
 interface AuthConxtexValue {
   login(credential: Credential): Promise<void>;
   logout(): void;
-  isLoggingIn: boolean;
   isRefreshing: boolean;
 }
 
