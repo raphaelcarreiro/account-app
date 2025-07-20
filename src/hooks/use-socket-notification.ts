@@ -1,16 +1,18 @@
 import { useEffect } from 'react';
-import { useSocket } from './use-socket';
 import { useSnackbar } from 'notistack';
+import { useSocket } from 'src/providers/socket/context';
 
 interface Notification {
   message: string;
 }
 
 export function useNotification() {
-  const [socket] = useSocket();
+  const { socket } = useSocket();
   const { enqueueSnackbar } = useSnackbar();
 
   useEffect(() => {
+    console.log('useNotification effect', socket);
+
     if (!socket) {
       return;
     }
