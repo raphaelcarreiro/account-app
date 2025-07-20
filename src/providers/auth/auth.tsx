@@ -2,12 +2,14 @@ import { useCallback, useEffect, useState, type FC, type PropsWithChildren } fro
 import { AuthContextProvider } from './context';
 import { api } from 'src/services/api';
 import type { Credential } from 'src/types/login';
-import { useApp } from 'src/hooks/use-app';
+import { useApp } from '../app/context';
+import { useSocket } from '../socket/context';
 
 const AuthProvider: FC<PropsWithChildren> = ({ children }) => {
   const [isRefreshing, setIsRefreshing] = useState(true);
   const [isLoggingIn, setIsLoggingIn] = useState(false);
   const { setUser } = useApp();
+  const { disconnect } = useSocket();
 
   useEffect(() => {
     setIsRefreshing(true);
@@ -37,7 +39,8 @@ const AuthProvider: FC<PropsWithChildren> = ({ children }) => {
   const logout = useCallback(async () => {
     await api.post('/logout');
     setUser(null);
-  }, [setUser]);
+    disconnect();
+  }, [setUser, disconnect]);
 
   return <AuthContextProvider value={{ login, logout, isRefreshing, isLoggingIn }}>{children}</AuthContextProvider>;
 };
