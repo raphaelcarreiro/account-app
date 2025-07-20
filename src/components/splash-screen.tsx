@@ -1,6 +1,6 @@
 import React from 'react';
 import { CircularProgress, styled } from '@mui/material';
-import { useAuth } from 'src/hooks/use-auth';
+import { useAuth } from 'src/providers/auth/context';
 
 const Container = styled('div')(props => ({
   display: 'flex',
