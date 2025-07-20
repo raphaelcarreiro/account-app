@@ -1,4 +1,4 @@
-import { createContext } from 'react';
+import { createContext, useContext } from 'react';
 import type { Credential } from 'src/types/login';
 
 interface AuthConxtexValue {
@@ -8,5 +8,11 @@ interface AuthConxtexValue {
   isRefreshing: boolean;
 }
 
-export const AuthContext = createContext<AuthConxtexValue>({} as AuthConxtexValue);
-export const AuthContextProvider = AuthContext.Provider;
+const AuthContext = createContext<AuthConxtexValue>({} as AuthConxtexValue);
+const AuthContextProvider = AuthContext.Provider;
+
+function useAuth() {
+  return useContext(AuthContext);
+}
+
+export { AuthContext, AuthContextProvider, useAuth };
