@@ -1,6 +1,6 @@
 import './App.css';
 import Index from '@pages/index';
-import { LogoutButton } from '@pages/logout-button';
+import { LogoutButton } from '@pages/index/logout-button';
 import { useNotification } from './hooks/use-socket-notification';
 import SplashScreen from '@components/splash-screen';
 
