@@ -17,7 +17,9 @@ export function useNotification() {
     }
 
     socket.on(SOCKET_EVENTS.NOTIFICATION_CREATED, (notification: Notification) => {
-      enqueueSnackbar(notification.message, { variant: 'success' });
+      enqueueSnackbar(notification.message, {
+        variant: 'success',
+      });
     });
   }, [socket, enqueueSnackbar]);
 }
