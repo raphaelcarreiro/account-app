@@ -1,7 +1,7 @@
 import { Button } from '@mui/material';
 import React from 'react';
-import { useApp } from 'src/hooks/use-app';
-import { useAuth } from 'src/hooks/use-auth';
+import { useApp } from 'src/providers/app/context';
+import { useAuth } from 'src/providers/auth/context';
 
 const LogoutButton: React.FC = () => {
   const { user } = useApp();
