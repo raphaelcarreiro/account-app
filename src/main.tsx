@@ -9,18 +9,21 @@ import AuthProvider from './providers/auth/auth.tsx';
 import { ThemeProvider } from '@mui/material';
 import { theme } from './theme.ts';
 import { SnackbarProvider } from 'notistack';
+import SocketProvider from './providers/socket/socket.tsx';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <BrowserRouter history={history}>
       <AppProvider>
-        <AuthProvider>
-          <ThemeProvider theme={theme}>
-            <SnackbarProvider maxSnack={10}>
-              <App />
-            </SnackbarProvider>
-          </ThemeProvider>
-        </AuthProvider>
+        <SocketProvider>
+          <AuthProvider>
+            <ThemeProvider theme={theme}>
+              <SnackbarProvider maxSnack={10}>
+                <App />
+              </SnackbarProvider>
+            </ThemeProvider>
+          </AuthProvider>
+        </SocketProvider>
       </AppProvider>
     </BrowserRouter>
   </StrictMode>,
