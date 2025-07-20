@@ -1,4 +1,4 @@
-import { createContext, type Dispatch, type SetStateAction } from 'react';
+import { createContext, useContext, type Dispatch, type SetStateAction } from 'react';
 import type { User } from 'src/types/user';
 
 type AppContextValue = {
@@ -6,5 +6,17 @@ type AppContextValue = {
   setUser: Dispatch<SetStateAction<User | null>>;
 };
 
-export const AppContext = createContext<AppContextValue | undefined>(undefined);
-export const AppContextProvider = AppContext.Provider;
+const AppContext = createContext<AppContextValue | undefined>(undefined);
+const AppContextProvider = AppContext.Provider;
+
+function useApp() {
+  const context = useContext(AppContext);
+
+  if (!context) {
+    throw new Error('useAppContext must be used within AppProvider');
+  }
+
+  return context;
+}
+
+export { AppContext, AppContextProvider, useApp };
