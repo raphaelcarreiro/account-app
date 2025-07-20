@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import type { ReactNode } from 'react';
-import type { User } from 'src/types/user';
+import type { User } from '@pages/index/types/user';
 import { AppContextProvider } from './context';
 
 type Props = {

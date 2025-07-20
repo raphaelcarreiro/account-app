@@ -1,5 +1,5 @@
 import { createContext, useContext } from 'react';
-import type { Credential } from 'src/types/login';
+import type { Credential } from '@pages/index/types/credential';
 
 interface AuthConxtexValue {
   login(credential: Credential): Promise<void>;

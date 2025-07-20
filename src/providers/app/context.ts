@@ -1,5 +1,5 @@
 import { createContext, useContext, type Dispatch, type SetStateAction } from 'react';
-import type { User } from 'src/types/user';
+import type { User } from '@pages/index/types/user';
 
 type AppContextValue = {
   user: User | null;

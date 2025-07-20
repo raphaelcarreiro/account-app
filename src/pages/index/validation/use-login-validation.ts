@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import type { Credential } from 'src/types/login';
+import type { Credential } from '@pages/index/types/credential';
 import * as yup from 'yup';
 
 export interface LoginValidation {

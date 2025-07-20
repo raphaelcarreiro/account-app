@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState, type FC, type PropsWithChildren } from 'react';
 import { AuthContextProvider } from './context';
 import { api } from 'src/services/api';
-import type { Credential } from 'src/types/login';
+import type { Credential } from '@pages/index/types/credential';
 import { useApp } from '../app/context';
 import { useSocket } from '../socket/context';
 
