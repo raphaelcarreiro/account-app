@@ -11,8 +11,6 @@ export function useNotification() {
   const { enqueueSnackbar } = useSnackbar();
 
   useEffect(() => {
-    console.log('useNotification effect', socket);
-
     if (!socket) {
       return;
     }
