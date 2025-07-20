@@ -1,7 +1,7 @@
 import { Button, TextField } from '@mui/material';
 import type { LoginValidation } from '@pages/index/validation/use-login-validation';
 import React, { type Dispatch, type SetStateAction } from 'react';
-import { useAuth } from 'src/hooks/use-auth';
+import { useAuth } from 'src/providers/auth/context';
 
 interface Props {
   validation: LoginValidation;
