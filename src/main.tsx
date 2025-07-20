@@ -18,7 +18,7 @@ createRoot(document.getElementById('root')!).render(
         <SocketProvider>
           <AuthProvider>
             <ThemeProvider theme={theme}>
-              <SnackbarProvider maxSnack={10}>
+              <SnackbarProvider maxSnack={10} anchorOrigin={{ vertical: 'top', horizontal: 'right' }}>
                 <App />
               </SnackbarProvider>
             </ThemeProvider>
