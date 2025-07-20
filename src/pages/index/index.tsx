@@ -10,12 +10,17 @@ export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [validation, validate] = useLoginValidation();
+  const [loading, setLoading] = useState(false);
   const { user } = useApp();
 
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
-    validate({ email, password }).then(() => login({ email, password }));
+    validate({ email, password }).then(handleLogin);
+  }
+
+  function handleLogin() {
+    login({ email, password }).finally(() => setLoading);
   }
 
   return (
@@ -31,6 +36,7 @@ export default function Login() {
           password={password}
           setPassword={setPassword}
           validation={validation}
+          loading={loading}
         />
       )}
     </Box>
