@@ -1,7 +1,6 @@
 import { Button, TextField } from '@mui/material';
 import type { LoginValidation } from '@pages/index/validation/use-login-validation';
 import React, { type Dispatch, type SetStateAction } from 'react';
-import { useAuth } from 'src/providers/auth/context';
 
 interface Props {
   validation: LoginValidation;
@@ -9,10 +8,10 @@ interface Props {
   password: string;
   setEmail: Dispatch<SetStateAction<string>>;
   setPassword: Dispatch<SetStateAction<string>>;
+  loading?: boolean;
 }
 
-const LoginForm: React.FC<Props> = ({ email, setEmail, setPassword, password, validation }) => {
-  const { isLoggingIn } = useAuth();
+const LoginForm: React.FC<Props> = ({ email, setEmail, setPassword, password, validation, loading }) => {
   return (
     <>
       <TextField
@@ -38,7 +37,7 @@ const LoginForm: React.FC<Props> = ({ email, setEmail, setPassword, password, va
         helperText={validation.password}
       />
 
-      <Button color="primary" variant="contained" type="submit" disabled={isLoggingIn}>
+      <Button color="primary" variant="contained" type="submit" disabled={loading}>
         Entrar
       </Button>
     </>
