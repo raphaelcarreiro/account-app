@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, type Dispatch, type SetStateAction } from 'react';
 import type { Credential } from '@pages/index/types/credential';
 import * as yup from 'yup';
 
@@ -7,7 +7,11 @@ export interface LoginValidation {
   password?: string;
 }
 
-type UseLoginValidation = [LoginValidation, (credential: Credential) => Promise<void>];
+type UseLoginValidation = [
+  LoginValidation,
+  Dispatch<SetStateAction<LoginValidation>>,
+  (credential: Credential) => Promise<void>,
+];
 
 export function useLoginValidation(): UseLoginValidation {
   const [validation, setValidation] = useState<LoginValidation>({} as LoginValidation);
@@ -37,5 +41,5 @@ export function useLoginValidation(): UseLoginValidation {
     }
   }
 
-  return [validation, handleValidation];
+  return [validation, setValidation, handleValidation];
 }
