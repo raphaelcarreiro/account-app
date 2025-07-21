@@ -4,6 +4,7 @@ import { api } from 'src/services/api';
 import type { Credential } from '@pages/index/types/credential';
 import { useApp } from '../app/context';
 import { useSocket } from '../socket/context';
+import { AxiosError } from 'axios';
 
 const AuthProvider: FC<PropsWithChildren> = ({ children }) => {
   const [isRefreshing, setIsRefreshing] = useState(true);
@@ -25,8 +26,18 @@ const AuthProvider: FC<PropsWithChildren> = ({ children }) => {
 
   const login = useCallback(
     async (credential: Credential) => {
-      const response = await api.post('/login', credential);
-      setUser(response.data);
+      try {
+        const response = await api.post('/login', credential);
+        setUser(response.data);
+      } catch (err) {
+        const error = err as AxiosError;
+
+        if (error.response?.status === 401) {
+          throw new Error('usuário ou senha inválidos');
+        }
+
+        throw error;
+      }
     },
     [setUser],
   );
