@@ -1,15 +1,24 @@
 import { useState } from 'react';
-import { Box } from '@mui/material';
+import { styled } from '@mui/material';
 import { LoginForm } from './login-form';
 import { useLoginValidation } from '@pages/index/validation/use-login-validation';
 import { useAuth } from 'src/providers/auth/context';
 import { useApp } from 'src/providers/app/context';
 
+const Form = styled('form')({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: 15,
+  width: 300,
+  margin: '0 auto',
+  marginTop: 100,
+});
+
 export default function Login() {
   const { login } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [validation, validate] = useLoginValidation();
+  const [validation, setValidation, validate] = useLoginValidation();
   const [loading, setLoading] = useState(false);
   const { user } = useApp();
 
@@ -20,15 +29,18 @@ export default function Login() {
   }
 
   function handleLogin() {
-    login({ email, password }).finally(() => setLoading);
+    login({ email, password })
+      .catch(error =>
+        setValidation({
+          email: error.message,
+          password: error.message,
+        }),
+      )
+      .finally(() => setLoading);
   }
 
   return (
-    <Box
-      component="form"
-      onSubmit={handleSubmit}
-      sx={{ display: 'flex', flexDirection: 'column', gap: 2, width: 300, margin: '0 auto', mt: 10 }}
-    >
+    <Form onSubmit={handleSubmit}>
       {!user && (
         <LoginForm
           email={email}
@@ -39,6 +51,6 @@ export default function Login() {
           loading={loading}
         />
       )}
-    </Box>
+    </Form>
   );
 }
